@@ -27,11 +27,12 @@
   };
   nix-homebrew = {
     enable = true;
+    autoMigrate = true;
     inherit user;
   };
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";  # remove anything not listed here
+    onActivation.cleanup = "none";  # never auto-remove Homebrew packages; keep anything installed manually
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
     brews = [
@@ -39,7 +40,6 @@
     ];
     casks = [
       "wezterm"
-      "claude-code"
     ];
   };
 }
