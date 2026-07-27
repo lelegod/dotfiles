@@ -13,6 +13,7 @@ in
     ripgrep   # fast search
     fd        # fast find
     fzf       # fuzzy finder
+    typescript-language-server
     jq        # json on the command line
     lazygit
     neovim
@@ -28,7 +29,25 @@ in
     syntaxHighlighting.enable = true;  # commands turn green when valid
     initContent = ''
       bindkey '^f' autosuggest-accept
+
+      # conda — keep first so later PATH entries win over base env
+      if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+      fi
+
       export PATH="$HOME/.local/bin:$PATH"   # native-installed CLIs (e.g. claude) live here
+
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+      [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+
+      # pyenv binary is currently missing; guarded so this is a no-op until reinstalled
+      export PYENV_ROOT="$HOME/.pyenv"
+      [ -d "$PYENV_ROOT/bin" ] && export PATH="$PYENV_ROOT/bin:$PATH"
+      command -v pyenv >/dev/null && eval "$(pyenv init - zsh)"
+
+      export BUN_INSTALL="$HOME/.bun"
+      export PATH="$BUN_INSTALL/bin:$PATH"
     '';
     shellAliases = {
       ".." = "cd ..";
