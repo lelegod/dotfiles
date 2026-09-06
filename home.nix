@@ -17,6 +17,9 @@ in
     jq        # json on the command line
     lazygit
     neovim
+    tree-sitter   # parser compiler; nvim-treesitter's main branch shells out to it
+    visidata      # spreadsheet TUI; opens .xlsx directly, no conversion step
+    poppler-utils # pdftotext, for pulling a PDF's words into a buffer
     # the font everything renders in
     nerd-fonts.hack
   ];
@@ -29,6 +32,11 @@ in
     syntaxHighlighting.enable = true;  # commands turn green when valid
     initContent = ''
       bindkey '^f' autosuggest-accept
+
+      # Ctrl-P pastes the system clipboard at the cursor, like a normal terminal
+      paste-clipboard() { LBUFFER+="$(pbpaste)" }
+      zle -N paste-clipboard
+      bindkey '^P' paste-clipboard
 
       # conda — keep first so later PATH entries win over base env
       if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then

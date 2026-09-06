@@ -1,4 +1,5 @@
 require('vim_config')
 require('plugin')
 require('keys')
+require('preview')
 require('lsp')
