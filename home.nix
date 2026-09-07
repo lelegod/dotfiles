@@ -20,8 +20,9 @@ in
     tree-sitter   # parser compiler; nvim-treesitter's main branch shells out to it
     visidata      # spreadsheet TUI; opens .xlsx directly, no conversion step
     poppler-utils # pdftotext, for pulling a PDF's words into a buffer
-    # the font everything renders in
-    nerd-fonts.hack
+    # the font everything renders in; jetbrains mono has a taller x-height
+    # than hack, so it reads larger at the same point size
+    nerd-fonts.jetbrains-mono
   ];
   fonts.fontconfig.enable = true;
   home.sessionVariables.EDITOR = "nvim";
